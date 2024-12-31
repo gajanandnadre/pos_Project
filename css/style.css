@@ -1,0 +1,76 @@
+body{
+    background-color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar {
+
+    background-color: #2c294b !important;
+    z-index: -10 !important;
+    padding: 50px;
+    
+}
+.navbar-brand{
+    
+    color: #fff !important;
+    font-size: 50px;
+
+}
+
+.fa-user{
+    font-size: 40px;
+    color: white;
+    background-color: black;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 50%;
+}
+.fa-brightness{
+    font-size: 40px;
+    color: white;
+    margin-right: 20px;
+    margin-left: 20px;
+    /* background-color: wheat; */
+}
+
+.container .row-horizontal{
+
+    height:  auto!important;
+    /* background-color: #546972; */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    box-shadow: 2px 2px 10px gray;
+    
+    
+}
+.horizontal-item{
+    /* position: absolute; */
+    
+    
+}
+.row-horizontal:hover{
+    border: 3px solid #4882D8 !important;
+}
+.horizontal-row{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+
+.card .card-text{
+
+    font-size: 20px;
+    font-weight: 700;
+
+
+
+}
+.Amount{
+    color: rgb(8, 253, 8);
+    font-size: 30px;
+}
+
+

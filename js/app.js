@@ -1,10 +1,12 @@
 let categorryUrl = "https://dummyjson.com/products/category-list";
 let productsUrl = "https://dummyjson.com/products/category/";
+let singleProductUrl = "https://dummyjson.com/products/";
 
 //  get category list
 
 $(document).ready(function () {
   //  get category list
+  getCartItem();
 
   $.ajax({
     url: categorryUrl, // CATRGORY URL
@@ -37,6 +39,7 @@ $(document).ready(function () {
 
   $(document).on("click", ".category", function () {
     var val = $(this).attr("id");
+   
     $.ajax({
         url:productsUrl+val,
         method: "GET",
@@ -48,8 +51,8 @@ $(document).ready(function () {
             let html = "";
 
             response.products.forEach(product => {
-                html += '   <div class="col-lg-4 ">';
-                html += '       <div class="card" style="width: 18rem;">';
+                html += '   <div class="col-lg-3 ">';
+                html += '       <div class="card product" style="width: 18rem;" data-product-id='+product.id+'>';
                 html += '            <img src="'+product.thumbnail+'" class="card-img-top" alt="...">';
                 html += '           <div class="card-body">';
                 html += '         <h3 class="card-title">'+product.title+'</h3>';
@@ -64,4 +67,71 @@ $(document).ready(function () {
         }
     })
   });
+
+   $(document).on("click",".product",function(e){
+    let productid = $(this).data("product-id");
+    console.log(productid)
+    $.ajax({
+      url : singleProductUrl + productid,
+      method : "GET",
+      data : {},
+      success : function(product){
+        // console.log(product);
+        
+        
+        var productObj = {};
+        productObj.productid = product.id;
+        productObj.pname = product.title;
+        productObj.price = product.price;
+        productObj.qty = 1;
+        
+        if(localStorage.getItem("products")){
+          let productsList = localStorage.getItem("products");
+          productsList = JSON.parse(productsList);
+          let qty = productsList.qty
+          qty += 1
+          productObj.qty = qty;
+          // console.log(qty);
+        }
+        
+          localStorage.setItem("products",JSON.stringify(productObj));
+        
+        getCartItem();
+
+      }
+    })
+   })
+   $(document).on("click","#deleted",function(e){
+    if(confirm("Are you sure?")){
+      localStorage.removeItem("products");
+      getCartItem();
+    }
+   })
+
+
+
+
 });
+
+function getCartItem(){
+  if(localStorage.getItem("products")){
+    var product = localStorage.getItem("products");
+    product = JSON.parse(product);
+    var html = "";
+    var i = 1;
+    // for(data in product){
+      // console.log(data);
+      html += `<tr>
+                    <td>${product.pname}</td>
+                    <td>${product.price}</td>
+                    <td>${product.qty}</td>
+                    <td>
+                    
+                        <a href="#" class="action-btn delete" id="deleted">Delete</a>
+                    </td>
+                </tr>`
+      
+    // }
+    $("#card tbody").append(html)
+  }
+}

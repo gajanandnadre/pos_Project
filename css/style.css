@@ -48,9 +48,12 @@ body{
 }
 .horizontal-item{
     /* position: absolute; */
-    
+}
+.category{
+    /* position: absolute; */
     
 }
+
 .row-horizontal:hover{
     border: 3px solid #4882D8 !important;
 }
@@ -68,9 +71,44 @@ body{
 
 
 }
+.product:hover{
+    box-shadow: 2px 2px 10px gray;
+
+}
 .Amount{
     color: rgb(8, 253, 8);
     font-size: 30px;
 }
 
+/* style for table in  */
 
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f4f4f4;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
+.action-btn {
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 0 5px;
+}
+.edit {
+    background-color: #4CAF50;
+}
+.delete {
+    background-color: #f44336;
+}

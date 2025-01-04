@@ -6,7 +6,7 @@ let singleProductUrl = "https://dummyjson.com/products/";
 
 $(document).ready(function () {
   //  get category list
-  getCartItem();
+  renderCart();
 
   $.ajax({
     url: categorryUrl, // CATRGORY URL
@@ -16,7 +16,7 @@ $(document).ready(function () {
       let html = "";
       var i = 0;
       response.forEach((cat) => {
-        if (i < 5) {
+        if (i < 6) {
 
             // let upperCat = cat.toUpperCase();
             let formattedCat = cat
@@ -70,68 +70,95 @@ $(document).ready(function () {
 
    $(document).on("click",".product",function(e){
     let productid = $(this).data("product-id");
-    console.log(productid)
+    // console.log(productid)
     $.ajax({
       url : singleProductUrl + productid,
       method : "GET",
       data : {},
       success : function(product){
         // console.log(product);
+        updateCart(product);
         
         
-        var productObj = {};
-        productObj.productid = product.id;
-        productObj.pname = product.title;
-        productObj.price = product.price;
-        productObj.qty = 1;
-        
-        if(localStorage.getItem("products")){
-          let productsList = localStorage.getItem("products");
-          productsList = JSON.parse(productsList);
-          let qty = productsList.qty
-          qty += 1
-          productObj.qty = qty;
-          // console.log(qty);
-        }
-        
-          localStorage.setItem("products",JSON.stringify(productObj));
-        
-        getCartItem();
 
+      },
+      error : function(){
+        console.log("Something wents wrong");
+        
       }
     })
    })
-   $(document).on("click","#deleted",function(e){
-    if(confirm("Are you sure?")){
-      localStorage.removeItem("products");
-      getCartItem();
-    }
-   })
 
 
-
-
+   $(document).on("click", ".delete-btn", function () {
+    var productId = $(this).data("id");
+    const cart = loadCart();
+    const updatedCart = cart.filter(item => item.id !== productId); // Remove the product
+    saveCart(updatedCart);
+    renderCart(); // Re-render the cart after deletion
 });
+  
+  
+  
+  
+  
+}); 
+   
 
-function getCartItem(){
-  if(localStorage.getItem("products")){
-    var product = localStorage.getItem("products");
+function updateCart(product){
+  
+  const cart = loadCart();
+  const productIndex = cart.findIndex(item => item.id === product.id);
+  // console.log(productIndex);
+  
+  // console.log(cart);
+  // console.log(product);
+  
+  if(productIndex !== -1){
+    cart[productIndex].qty++;
+  }else{
+    cart.push({...product,qty : 1})
+  }
+  saveCart(cart);
+  renderCart();
+  // console.log(qty);
+  
+}
+function saveCart(cart){
+  localStorage.setItem("cart",JSON.stringify(cart));
+}
+function loadCart(){
+  return JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+function renderCart(){
+  if(localStorage.getItem("cart")){
+    var product = localStorage.getItem("cart");
     product = JSON.parse(product);
+    
     var html = "";
     var i = 1;
     // for(data in product){
       // console.log(data);
-      html += `<tr>
-                    <td>${product.pname}</td>
-                    <td>${product.price}</td>
-                    <td>${product.qty}</td>
+      product.forEach(data => {
+
+        html += `<tr>
+                    <td>${i}</td>
+                    <td>${data.title}</td>
+                    <td>${data.price}</td>
+                    <td>${data.qty}</td>
                     <td>
                     
-                        <a href="#" class="action-btn delete" id="deleted">Delete</a>
+                       <button type="button" class="delete-btn delete" data-id="${data.id}">Delete</button>
                     </td>
-                </tr>`
+                 </tr>`
+
+                 i++
+
+      })
+   
       
     // }
-    $("#card tbody").append(html)
+    $("#card tbody").html(html)
   }
 }

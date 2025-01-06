@@ -16,14 +16,14 @@ $(document).ready(function () {
       let html = "";
       var i = 0;
       response.forEach((cat) => {
-        if (i < 6) {
+        if (i < 8) {
 
             // let upperCat = cat.toUpperCase();
             let formattedCat = cat
             .replace(/-/g, " ") // Replace hyphens with spaces
             .replace(/\b\w/g, (char) => char.toUpperCase());
           // html += '<div id=' + cat +' >';
-          html += ' <div class="card row-horizontal category"  style="width: 12rem; height: 12rem;" id= ' + cat + ">";
+          html += ' <div class="card row-horizontal category"  style="width: 8rem; height: 8rem;" id= ' + cat + ">";
           html += ' <img src="./images/' + cat +'.png" class="card-img-top horizontal-row" alt="...">';
           html += ' <div class="card-body"> ';
           html += '<h5 class="card-title"  >' + formattedCat + "</h5>";
@@ -98,7 +98,7 @@ $(document).ready(function () {
     renderCart(); // Re-render the cart after deletion
 
 
-    $(document).on("click","#clearButton",function(){
+    $(document).on("click",".clearButton",function(){
       localStorage.clear();
       renderCart();
     })
@@ -144,15 +144,18 @@ function renderCart(){
     
     var html = "";
     var i = 1;
+    let TotalQty = 0;
+    let TotalPrice = 0;
     // for(data in product){
       // console.log(data);
       product.forEach(data => {
-
+          let total = data.price * data.qty
         html += `<tr>
                     <td>${i}</td>
                     <td>${data.title}</td>
-                    <td>${data.price}</td>
+                    <td>${data.price.toFixed(2)}</td>
                     <td>${data.qty}</td>
+                    <td> ${total} </td>
                     <td>
                     
                        <button type="button" class="delete-btn delete" data-id="${data.id}">Delete</button>
@@ -160,11 +163,24 @@ function renderCart(){
                  </tr>`
 
                  i++
+                TotalQty += data.qty;
+                 TotalPrice += total;
 
       })
+        let totalRow = `<tr>
+                        <td class="totalprice"> = </td>
+                        <td class="totalprice"> Total Price and 
+                        
+                        Qty </td>
+                        <td class="totalprice">  </td>
+                        <td class="totalprice"> ${TotalQty}</td>
+                        <td class="totalprice"> ${TotalPrice.toFixed(2)}</td>
+                        </tr>`
    
       
     // }
     $("#card tbody").html(html)
+    $("#card tbody").append(totalRow)
+
   }
 }

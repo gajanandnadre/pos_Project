@@ -58,8 +58,8 @@ body{
     border: 3px solid #4882D8 !important;
 }
 .horizontal-row{
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     text-align: center;
 }
 
@@ -83,7 +83,7 @@ body{
 
 /*  clear button styling */
 
-#clearButton {
+.clearButton {
     width: 200px;
     height: 50px;
     margin-bottom: 20px;
@@ -99,7 +99,7 @@ body{
     transition: transform 0.2s ease, background-color 0.2s ease; /* Hover effects */
   }
 
-  #clearButton:hover {
+  .clearButton:hover {
     background: linear-gradient(90deg, #feb47b, #ff7e5f); /* Reverse gradient on hover */
     transform: scale(1.05); /* Slightly enlarge on hover */
   }
@@ -137,4 +137,8 @@ tr:hover {
 }
 .delete {
     background-color: #f44336;
+}
+.totalprice{
+    font-size: larger;
+    background-color: #0b7998;
 }

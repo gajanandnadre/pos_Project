@@ -80,6 +80,32 @@ body{
     font-size: 30px;
 }
 
+
+/*  clear button styling */
+
+#clearButton {
+    width: 200px;
+    height: 50px;
+    margin-bottom: 20px;
+    /* display: flex; */
+    /* flex: end; */
+
+    border-radius: 20px; /* Rounded corners */
+    background: linear-gradient(90deg, #0b7998, #2db036); /* Gradient background */
+    color: white; /* Text color */
+    font-weight: bold; /* Bold text */
+    padding: 10px 20px; /* Padding for larger button */
+    border: none; /* Remove border */
+    transition: transform 0.2s ease, background-color 0.2s ease; /* Hover effects */
+  }
+
+  #clearButton:hover {
+    background: linear-gradient(90deg, #feb47b, #ff7e5f); /* Reverse gradient on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+
+
+
 /* style for table in  */
 
 

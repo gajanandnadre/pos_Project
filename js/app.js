@@ -96,6 +96,12 @@ $(document).ready(function () {
     const updatedCart = cart.filter(item => item.id !== productId); // Remove the product
     saveCart(updatedCart);
     renderCart(); // Re-render the cart after deletion
+
+
+    $(document).on("click","#clearButton",function(){
+      localStorage.clear();
+      renderCart();
+    })
 });
   
   

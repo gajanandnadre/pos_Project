@@ -43,7 +43,7 @@ body{
     overflow: hidden;
     width: 100%;
     margin-bottom: 20px;
-  } */
+  } 
   
   .slider-wrapper {
     overflow: hidden;
@@ -57,8 +57,8 @@ body{
   }
   
   .card { 
-    margin: 0 10px;    *Adjust spacing between cards
-    flex: 0 0 calc(16.66% - 20px); Show 6 cards per view with spacing adjustment;
+    margin: 0 10px;    /**Adjust spacing between cards */
+    flex: 0 0 calc(15.66% - 12px); /*Show 6 cards per view with spacing adjustment; */
     box-sizing: border-box;
      }
   
@@ -116,8 +116,8 @@ body{
     border: 3px solid #4882D8 !important;
 }
 .horizontal-row{
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     text-align: center;
 }
 .product{

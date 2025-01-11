@@ -16,7 +16,7 @@ $(document).ready(function () {
       let html = "";
       var i = 0;
       response.forEach((cat) => {
-        if (i < 8) {
+        if (i < 24) {
 
             // let upperCat = cat.toUpperCase();
             let formattedCat = cat
@@ -38,33 +38,65 @@ $(document).ready(function () {
     },
   });
 
-  function initSlider() {
-    const slider = $(".slider");
-    const sliderWrapper = $(".slider-wrapper");
-    const cardWidth = $(".card").outerWidth(true); // Include margins
-    const visibleCards = Math.floor(sliderWrapper.width() / cardWidth);
-    let currentIndex = 0;
+//   function initSlider() {
+//     const slider = $(".slider");
+//     const sliderWrapper = $(".slider-wrapper");
+//     const cardWidth = $(".card").outerWidth(true); // Include margins
+//     const visibleCards = Math.floor(sliderWrapper.width() / cardWidth);
+//     let currentIndex = 0;
 
-    $(".next-btn").on("click", function () {
-        const totalCards = slider.children().length;
-        if (currentIndex + visibleCards < totalCards) {
-            currentIndex++;
-            updateSlider();
-        }
-    });
+//     $(".next-btn").on("click", function () {
+//         const totalCards = slider.children().length;
+//         if (currentIndex + visibleCards < totalCards) {
+//             currentIndex++;
+//             updateSlider();
+//         }
+//     });
 
-    $(".prev-btn").on("click", function () {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateSlider();
-        }
-    });
+//     $(".prev-btn").on("click", function () {
+//         if (currentIndex > 0) {
+//             currentIndex--;
+//             updateSlider();
+//         }
+//     });
 
-    function updateSlider() {
-        const offset = -(currentIndex * cardWidth);
-        slider.css("transform", `translateX(${offset}px)`);
-    }
+//     function updateSlider() {
+//         const offset = -(currentIndex * cardWidth);
+//         slider.css("transform", `translateX(${offset}px)`);
+//     }
+// }
+function initSlider() {
+  const slider = $(".slider");
+  const sliderWrapper = $(".slider-wrapper");
+  const cardWidth = $(".card").outerWidth(true); // Include margins
+  const visibleCards = Math.floor(sliderWrapper.width() / cardWidth);
+  let currentIndex = 0;
+
+  // Event handler for the "Next" button
+  $(".next-btn").on("click", function () {
+
+      const totalCards = slider.children().length;
+      if (currentIndex + visibleCards < totalCards) {
+          currentIndex++;
+          updateSlider();
+      }
+  });
+
+  // Event handler for the "Previous" button
+  $(".prev-btn").on("click", function () {
+      if (currentIndex > 0) {
+          currentIndex--;
+          updateSlider();
+      }
+  });
+
+  // Function to update the slider's position
+  function updateSlider() {
+      const offset = -(currentIndex * cardWidth); // Correct offset calculation
+      slider.css("transform", `translateX(${offset}px)`);
+  }
 }
+
 
   $(document).on("click", ".category", function () {
     var val = $(this).attr("id");

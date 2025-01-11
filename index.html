@@ -39,12 +39,19 @@
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-8 border">
+        <div class="col-lg-8 ">
           <div
             class="container d-flex justify-content-between gap-2 horizontal-item ">
-            <div class=" row" id="category">
-
-            </div>
+            <div class="slider-container"> 
+              <button class="slider-btn prev-btn">&lt;</button>
+               <div class="slider-wrapper">
+                  <div class="slider " id="category">
+                      Menu cards will be dynamically injected here
+                  </div>
+              </div>
+              <button class="slider-btn next-btn">&gt;</button>
+            </div>  
+                      
           </div>
           <!--  multiple images of  -->
           <div class="container text-center mt-5">
@@ -54,7 +61,7 @@
           </div>
         </div>
         <div class="col-lg-4">
-          <button type="button" class="btn btn-secondary clearButton" id="">Clear All</button>
+          <button type="button" class="btn btn-secondary clearButton" id="clear">Clear All</button>
           <table id="card">
             <thead>
                 <tr>

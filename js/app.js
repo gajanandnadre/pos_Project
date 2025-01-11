@@ -1,7 +1,7 @@
+
 let categorryUrl = "https://dummyjson.com/products/category-list";
 let productsUrl = "https://dummyjson.com/products/category/";
 let singleProductUrl = "https://dummyjson.com/products/";
-
 //  get category list
 
 $(document).ready(function () {
@@ -34,8 +34,37 @@ $(document).ready(function () {
         i++;
       });
       $("#category").html(html);
+      initSlider();
     },
   });
+
+  function initSlider() {
+    const slider = $(".slider");
+    const sliderWrapper = $(".slider-wrapper");
+    const cardWidth = $(".card").outerWidth(true); // Include margins
+    const visibleCards = Math.floor(sliderWrapper.width() / cardWidth);
+    let currentIndex = 0;
+
+    $(".next-btn").on("click", function () {
+        const totalCards = slider.children().length;
+        if (currentIndex + visibleCards < totalCards) {
+            currentIndex++;
+            updateSlider();
+        }
+    });
+
+    $(".prev-btn").on("click", function () {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSlider();
+        }
+    });
+
+    function updateSlider() {
+        const offset = -(currentIndex * cardWidth);
+        slider.css("transform", `translateX(${offset}px)`);
+    }
+}
 
   $(document).on("click", ".category", function () {
     var val = $(this).attr("id");
@@ -51,9 +80,9 @@ $(document).ready(function () {
             let html = "";
 
             response.products.forEach(product => {
-                html += '   <div class="col-lg-3 ">';
-                html += '       <div class="card product" style="width: 18rem;" data-product-id='+product.id+'>';
-                html += '            <img src="'+product.thumbnail+'" class="card-img-top" alt="...">';
+                html += '   <div class="col-lg-2 ">';
+                html += '       <div class="card product" style="width: 13rem;" data-product-id='+product.id+'>';
+                html += '            <img src="'+product.thumbnail+'" class="card-img-top product-img-top" alt="...">';
                 html += '           <div class="card-body">';
                 html += '         <h3 class="card-title">'+product.title+'</h3>';
                 html += '        <p class="card-text ">'+product.warrantyInformation+'</p>';
@@ -88,27 +117,17 @@ $(document).ready(function () {
       }
     })
    })
-
-
    $(document).on("click", ".delete-btn", function () {
     var productId = $(this).data("id");
     const cart = loadCart();
     const updatedCart = cart.filter(item => item.id !== productId); // Remove the product
     saveCart(updatedCart);
     renderCart(); // Re-render the cart after deletion
+  });
 
 
-    $(document).on("click",".clearButton",function(){
-      localStorage.clear();
-      renderCart();
-    })
-});
-  
-  
-  
-  
-  
-}); 
+   
+
    
 
 function updateCart(product){
@@ -179,8 +198,28 @@ function renderCart(){
    
       
     // }
+    
     $("#card tbody").html(html)
     $("#card tbody").append(totalRow)
+    
+    
+  }else{
+    $("#card tbody").html("")
 
   }
 }
+        $(document).on("click","#clear",function(){
+          // console.log("yes");
+          
+        if(confirm("Are you sure")){
+          localStorage.clear();
+          renderCart();
+        }  
+
+        })
+
+ 
+});
+  
+
+ 
